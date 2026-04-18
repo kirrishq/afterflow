@@ -2,6 +2,7 @@ import Image from "next/image";
 import { HeroSectionHome } from "@/components/sections/HeroSectionHome";
 import { MarqueeStack } from "@/components/sections/MarqueeStack";
 import { SectionTitle } from "@/components/sections/SectionTitle";
+import { WhatWeDoSection } from "@/components/sections/WhatWeDoSection";
 
 export default function Home() {
   return (
@@ -11,11 +12,12 @@ export default function Home() {
           <HeroSectionHome />
         </div>
         <MarqueeStack />
-        <div className="section">
+        {/* <div className="section">
           <div className="container-sm">
             <SectionTitle />
           </div>
-        </div>
+        </div> */}
+        <WhatWeDoSection />
       </main>
   );
 }

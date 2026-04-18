@@ -198,6 +198,11 @@ h6,
   }
 }
 
+/* Border */
+.border-bottom {
+  border-bottom: 1px dashed var(--color-border);
+}
+
 /* Button */
 .button {
   font-family: var(--font-heading), sans-serif;
