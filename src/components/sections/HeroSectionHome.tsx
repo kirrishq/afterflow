@@ -31,7 +31,6 @@ export function HeroSectionHome() {
             <div>
               <p className='heading-lg max-w-xl'>
                 Создаем эффективные <span>сайты</span>
-                <br />
                 — инструмент роста бизнеса, который работает 24/7
               </p>
             </div>

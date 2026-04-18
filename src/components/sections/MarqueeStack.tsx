@@ -11,7 +11,7 @@ const duplicatedLogos = [...stackLogos, ...stackLogos]
 export function MarqueeStack() {
   return (
     <section className="section marquee-stack mt-8">
-      <div className="container px-2 md:px-8 md:py-4">
+      <div className="container px-2 md:px-8">
         <div className="flex flex-col md:flex-row items-start md:items-center">
             <div className="marquee-stack__intro">
             <div className="marquee-stack__icon" aria-hidden="true">

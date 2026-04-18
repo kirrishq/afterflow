@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 const namu = localFont({
   src: [
@@ -28,14 +30,17 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="ru" className={`${namu.variable} ${manrope.variable} h-full`}>
-      <body>
-        {children}
+    <html lang="ru" suppressHydrationWarning>
+      <body className={`${namu.variable} ${manrope.variable}`}>
+        <ThemeProvider>
+          {children}
+          <ThemeToggle />
+        </ThemeProvider>
       </body>
     </html>
-  );
+  )
 }
