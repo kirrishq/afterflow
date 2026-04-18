@@ -7,11 +7,8 @@ export function NeuroBackground() {
   const frameRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const canvasEl = canvasRef.current
-    if (!canvasEl) return
-
-    const parent = canvasEl.parentElement
-    if (!parent) return
+    const canvas = canvasRef.current
+    if (!canvas) return
 
     const devicePixelRatio = Math.min(window.devicePixelRatio, 2)
     let gl: WebGLRenderingContext | null = null
@@ -25,6 +22,7 @@ export function NeuroBackground() {
     ) {
       const shader = gl.createShader(type)
       if (!shader) return null
+
       gl.shaderSource(shader, sourceCode)
       gl.compileShader(shader)
 
@@ -71,10 +69,14 @@ export function NeuroBackground() {
     }
 
     function initShader() {
+      const currentCanvas = canvasRef.current
+      if (!currentCanvas) return null
+
       const vsSource = `
         precision mediump float;
         varying vec2 vUv;
         attribute vec2 a_position;
+
         void main() {
           vUv = .5 * (a_position + 1.);
           gl_Position = vec4(a_position, 0.0, 1.0);
@@ -133,6 +135,7 @@ export function NeuroBackground() {
             res += (.5 + .5 * cos(layer)) / scale;
             scale *= (1.2 - .07 * p);
           }
+
           return res.x + res.y;
         }
 
@@ -147,7 +150,6 @@ export function NeuroBackground() {
 
           float t = .001 * u_time;
           vec3 base = vec3(0.106);
-
           vec3 activeColor = getColor(t * 0.3);
 
           float noise = neuro_shape(uv, t, p);
@@ -159,11 +161,14 @@ export function NeuroBackground() {
         }
       `
 
-      gl =
-        canvasEl.getContext('webgl') ||
-        (canvasEl.getContext('experimental-webgl') as WebGLRenderingContext | null)
+      const webgl = (
+        currentCanvas.getContext('webgl') ||
+        currentCanvas.getContext('experimental-webgl')
+      ) as WebGLRenderingContext | null
 
-      if (!gl) return null
+      if (!webgl) return null
+
+      gl = webgl
 
       const vertexShader = createShader(gl, vsSource, gl.VERTEX_SHADER)
       const fragmentShader = createShader(gl, fsSource, gl.FRAGMENT_SHADER)
@@ -176,6 +181,8 @@ export function NeuroBackground() {
 
       const vertices = new Float32Array([-1, -1, 1, -1, -1, 1, 1, 1])
       const vertexBuffer = gl.createBuffer()
+      if (!vertexBuffer) return null
+
       gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer)
       gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW)
 
@@ -189,19 +196,40 @@ export function NeuroBackground() {
       return gl
     }
 
+    function getParentRect() {
+      const currentCanvas = canvasRef.current
+      const parentEl = currentCanvas?.parentElement
+      if (!currentCanvas || !parentEl) return null
+
+      return {
+        canvas: currentCanvas,
+        parentEl,
+        rect: parentEl.getBoundingClientRect(),
+      }
+    }
+
     function resizeCanvas() {
       if (!gl) return
-      const rect = parent.getBoundingClientRect()
-      canvasEl.width = rect.width * devicePixelRatio
-      canvasEl.height = rect.height * devicePixelRatio
-      canvasEl.style.width = `${rect.width}px`
-      canvasEl.style.height = `${rect.height}px`
-      gl.uniform1f(uniforms.u_ratio, canvasEl.width / canvasEl.height)
-      gl.viewport(0, 0, canvasEl.width, canvasEl.height)
+
+      const data = getParentRect()
+      if (!data) return
+
+      const { canvas, rect } = data
+
+      canvas.width = rect.width * devicePixelRatio
+      canvas.height = rect.height * devicePixelRatio
+      canvas.style.width = `${rect.width}px`
+      canvas.style.height = `${rect.height}px`
+
+      gl.uniform1f(uniforms.u_ratio, canvas.width / canvas.height)
+      gl.viewport(0, 0, canvas.width, canvas.height)
     }
 
     function updateMousePosition(clientX: number, clientY: number) {
-      const rect = parent.getBoundingClientRect()
+      const data = getParentRect()
+      if (!data) return
+
+      const { rect } = data
       pointer.tX = clientX - rect.left
       pointer.tY = clientY - rect.top
     }
@@ -218,37 +246,56 @@ export function NeuroBackground() {
     function render() {
       if (!gl) return
 
+      const data = getParentRect()
+      if (!data) return
+
+      const { rect } = data
+
       pointer.x += (pointer.tX - pointer.x) * 0.5
       pointer.y += (pointer.tY - pointer.y) * 0.5
 
       gl.uniform1f(uniforms.u_time, performance.now())
 
-      const rect = parent.getBoundingClientRect()
       const px = rect.width ? pointer.x / rect.width : 0.5
       const py = rect.height ? 1 - pointer.y / rect.height : 0.5
 
       gl.uniform2f(uniforms.u_pointer_position, px, py)
-      gl.uniform1f(uniforms.u_scroll_progress, window.scrollY / (2 * window.innerHeight))
+      gl.uniform1f(
+        uniforms.u_scroll_progress,
+        window.scrollY / (2 * window.innerHeight)
+      )
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4)
 
       frameRef.current = requestAnimationFrame(render)
     }
 
+    const initialParent = canvas.parentElement
+    if (!initialParent) return
+
     if (initShader()) {
       resizeCanvas()
-      parent.addEventListener('pointermove', onPointerMove)
-      parent.addEventListener('touchmove', onTouchMove, { passive: true })
+      initialParent.addEventListener('pointermove', onPointerMove)
+      initialParent.addEventListener('touchmove', onTouchMove, { passive: true })
       window.addEventListener('resize', resizeCanvas)
       render()
     }
 
     return () => {
-      parent.removeEventListener('pointermove', onPointerMove)
-      parent.removeEventListener('touchmove', onTouchMove)
+      initialParent.removeEventListener('pointermove', onPointerMove)
+      initialParent.removeEventListener('touchmove', onTouchMove)
       window.removeEventListener('resize', resizeCanvas)
-      if (frameRef.current) cancelAnimationFrame(frameRef.current)
+
+      if (frameRef.current) {
+        cancelAnimationFrame(frameRef.current)
+      }
     }
   }, [])
 
-  return <canvas ref={canvasRef} className="absolute inset-0 h-full w-full" aria-hidden="true" />
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 h-full w-full"
+      aria-hidden="true"
+    />
+  )
 }
