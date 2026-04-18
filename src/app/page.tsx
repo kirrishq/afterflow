@@ -1,5 +1,4 @@
 import Image from "next/image";
-import Navbar from "@/src/components/layout/Navbar";
 import { HeroSectionHome } from "@/components/sections/HeroSectionHome";
 import { MarqueeStack } from "@/components/sections/MarqueeStack";
 
