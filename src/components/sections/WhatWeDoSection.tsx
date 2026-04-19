@@ -189,7 +189,7 @@ export function WhatWeDoSection() {
                 <div className="flex items-end justify-between gap-6">
                   <h3
                     data-wwd-title
-                    className="heading-lg"
+                    className="heading"
                   >
                     {item.title}
                   </h3>

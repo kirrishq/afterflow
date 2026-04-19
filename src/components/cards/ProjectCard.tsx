@@ -9,9 +9,9 @@ export function ProjectCard({ project }: Props) {
   return (
     <Link
       href={project.href}
-      className="group block relative"
+      className="group block relative project"
     >
-      <div className="mb-4 overflow-hidden rounded-[1rem] bg-neutral-100">
+      <div className="mb-4 overflow-hidden rounded-[1rem]">
         <div className="relative aspect-[695/480]">
           <img
             src={project.imageSrc}
@@ -22,12 +22,12 @@ export function ProjectCard({ project }: Props) {
         </div>
       </div>
 
-      <div className="flex flex-col leading-tight">
-        <h2 className="mb-0 text-sm md:text-base text-[var(--color-text-primary)]">
+      <div className="flex flex-col">
+        <h3 className="heading underline-left self-start">
           <span>{project.title}</span>
-        </h2>
+        </h3>
 
-        <p className="mb-0 text-xs text-[var(--color-text-muted)]">
+        <p className="mb-0 text-xs">
           {project.services.join(', ')}
         </p>
 

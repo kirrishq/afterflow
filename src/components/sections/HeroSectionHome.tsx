@@ -30,7 +30,7 @@ export function HeroSectionHome() {
           <div className='flex flex-col md:flex-row justify-start md:justify-between items-start md:items-end gap-4 z-1'>
             <div>
               <p className='heading-lg max-w-xl'>
-                Создаем эффективные <span>сайты</span>
+                Создаем эффективные сайты
                 — инструмент роста бизнеса, который работает 24/7
               </p>
             </div>

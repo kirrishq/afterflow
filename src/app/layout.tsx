@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+// import { BottomFade } from '@/components/ui/BottomFade'
 
 const namu = localFont({
   src: [
@@ -39,6 +40,7 @@ export default function RootLayout({
         <ThemeProvider>
           {children}
           <ThemeToggle />
+          {/* <BottomFade /> */}
         </ThemeProvider>
       </body>
     </html>
