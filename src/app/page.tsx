@@ -3,21 +3,18 @@ import { HeroSectionHome } from "@/components/sections/HeroSectionHome";
 import { MarqueeStack } from "@/components/sections/MarqueeStack";
 import { SectionTitle } from "@/components/sections/SectionTitle";
 import { WhatWeDoSection } from "@/components/sections/WhatWeDoSection";
+import { ProjectsGrid } from '@/components/sections/ProjectsGrid'
+import { projects } from '@/data/projects'
 
 export default function Home() {
   return (
       <main className="page-wrap">
-        <div className="flex items-stretch">
-          {/* <Navbar /> */}
-          <HeroSectionHome />
-        </div>
+        {/* <Navbar /> */}
+        <HeroSectionHome />
         <MarqueeStack />
-        {/* <div className="section">
-          <div className="container-sm">
-            <SectionTitle />
-          </div>
-        </div> */}
         <WhatWeDoSection />
+        <SectionTitle />
+        <ProjectsGrid projects={projects} limit={6} />
       </main>
   );
 }

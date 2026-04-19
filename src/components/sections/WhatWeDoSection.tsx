@@ -142,7 +142,7 @@ export function WhatWeDoSection() {
                 key={item.title}
                 href={item.href}
                 data-wwd-card
-                className="group grid gap-y-6 border-bottom py-6 md:grid-cols-2 md:gap-x-10 md:py-4"
+                className="group grid gap-y-6 border-bottom py-6 md:grid-cols-2 md:gap-x-3 md:py-4"
               >
                 <div
                   className="md:order-last overflow-hidden rounded-[1rem] will-change-[clip-path]"
@@ -194,9 +194,6 @@ export function WhatWeDoSection() {
                     {item.title}
                   </h3>
 
-                  <span className="hidden text-sm uppercase tracking-[0.18em] text-black/50 md:block">
-                    View
-                  </span>
                 </div>
               </Link>
             ))}

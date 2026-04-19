@@ -18,7 +18,7 @@ export function HeroSectionHome() {
         <div className='home-header_card'>
           <NeuroBackground />
 
-          <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4 z-1'>
+          <div className='hidden md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4 z-1'>
             <Tag label='Веб-дизайн' variant='dark'/>
             <Tag label='Разработка' variant='dark'/>
             <Tag label='Сайты' variant='dark'/>

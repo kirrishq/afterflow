@@ -7,7 +7,7 @@
   --color-black: #000;
 
   /* surfaces */
-  --color-bg: #f5f3ee;
+  --color-bg: #eeeeee;
   --color-surface: #ffffff;
   --color-surface-2: #ece7df;
   --color-surface-invert: #1b1b1b;
@@ -194,6 +194,7 @@ h6,
   color: var(--color-text-secondary-invert);
 
   @media (max-width: 768px) {
+    justify-content: end;
     padding: var(--space-4) var(--space-4);
   }
 }
@@ -379,7 +380,6 @@ h6,
   @media (max-width: 768px) {
     .marquee-stack__intro {
       gap: var(--space-3);
-      margin-bottom: var(--space-5);
     }
 
     .marquee-stack__icon {

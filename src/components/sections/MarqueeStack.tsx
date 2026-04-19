@@ -12,7 +12,7 @@ export function MarqueeStack() {
   return (
     <section className="section marquee-stack mt-8">
       <div className="container">
-        <div className="flex flex-col md:flex-row items-start md:items-center">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
             <div className="marquee-stack__intro">
             <div className="marquee-stack__icon" aria-hidden="true">
                 <svg
@@ -27,7 +27,7 @@ export function MarqueeStack() {
             </div>
 
             <p className="heading">
-                Используем проверенный стек для{'\u00A0'}дизайна, разработки и контента
+                Используем проверенный стек для{'\u00A0'}дизайна, разработки и{'\u00A0'}контента
             </p>
             </div>
 
