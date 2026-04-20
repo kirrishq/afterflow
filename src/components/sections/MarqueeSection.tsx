@@ -10,7 +10,7 @@ type LogoItem = {
 
 type Props = {
   logoSet?: LogoSetKey
-  logos: LogoItem[]
+  logos?: LogoItem[]
   text?: string
   icon?: ReactNode
   action?: ReactNode
