@@ -4,6 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { ThemeProvider } from '@/components/providers/ThemeProvider';
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Navbar } from '@/components/layout/Navbar';
 // import { BottomFade } from '@/components/ui/BottomFade'
 
 const namu = localFont({
@@ -38,6 +39,7 @@ export default function RootLayout({
     <html lang="ru" suppressHydrationWarning>
       <body className={`${namu.variable} ${manrope.variable}`}>
         <ThemeProvider>
+          <Navbar />
           {children}
           <ThemeToggle />
           {/* <BottomFade /> */}

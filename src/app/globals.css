@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import '../styles/navbar.css';
 
 
 :root {
@@ -67,6 +68,21 @@
   --text-2xl:  clamp(2rem,     1.2rem  + 2.5vw,  3.5rem);     /* 32–56px */
   --text-3xl:  clamp(2.5rem,   1rem    + 4vw,    5rem);        /* 40–80px */
   --text-hero: clamp(2.5rem,     0.5rem  + 7vw,    8rem);        /* 48–128px */
+
+  /* Navbar */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.4);
+  --glass-shadow: rgba(0, 0, 0, 0.1);
+  --glass-highlight: rgba(255, 255, 255, 0.8);
+  --glass-caustic: rgba(255, 255, 255, 0.4);
+  --reflection-start: rgba(255, 255, 255, 0.6);
+  --reflection-end: rgba(255, 255, 255, 0.0);
+  --glare-color: rgba(255, 255, 255, 0.5);
+  --pill-bg: rgba(255, 255, 255, 0.7);
+  --pill-shadow: 0 4px 12px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.05), inset 0 1px 1px rgba(255,255,255,0.8);
+  --icon-color: rgba(0, 0, 0, 0.5);
+  --icon-active: rgba(0, 0, 0, 0.95);
+  --divider: rgba(0, 0, 0, 0.15);
 }
 
 [data-theme='dark'] {
@@ -100,6 +116,21 @@
   --color-success: #4d8a63;
   --color-warning: #b2873b;
   --color-error: #c35f5f;
+
+  /* Navbar */
+  --glass-bg: rgba(30, 30, 35, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.15);
+  --glass-shadow: rgba(0, 0, 0, 0.8);
+  --glass-highlight: rgba(255, 255, 255, 0.25);
+  --glass-caustic: rgba(255, 255, 255, 0.05);
+  --reflection-start: rgba(255, 255, 255, 0.15);
+  --reflection-end: rgba(255, 255, 255, 0.0);
+  --glare-color: rgba(255, 255, 255, 0.15);
+  --pill-bg: rgba(60, 60, 65, 0.8);
+  --pill-shadow: 0 4px 12px rgba(0,0,0,0.4), 0 1px 2px rgba(0,0,0,0.2), inset 0 1px 1px rgba(255,255,255,0.2);
+  --icon-color: rgba(255, 255, 255, 0.5);
+  --icon-active: #ffffff;
+  --divider: rgba(255, 255, 255, 0.15);
 }
 
 html,
@@ -260,21 +291,20 @@ h6,
   color: var(--color-text-primary-invert);
 }
 
-/* .button--primary:hover {
-  background-color: var(--color-surface);
-  color: var(--color-text-primary);
-} */
+.button--primary:hover {
+  background-color: var(--color-black);
+  color: var(--color-text-primary-invert);
+}
 
 
 .button--secondary {
   background-color: var(--color-surface-2);
-  border-radius: var(--radius-sm);
   border: 1px solid transparent;
 }
 
 .button--secondary:hover {
   background-color: var(--color-surface);
-  /* border-radius: var(--radius-full); */
+  /* border-radius: var(--radius-sm); */
 }
 
 /* Tag */
