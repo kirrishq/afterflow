@@ -8,7 +8,18 @@ import { useGSAP } from '@gsap/react'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const footerNav = [
+type FooterLink = {
+  label: string
+  href: string
+  external?: boolean
+}
+
+type FooterColumn = {
+  title: string
+  links: FooterLink[]
+}
+
+const footerNav: FooterColumn[] = [
   {
     title: 'Навигация',
     links: [
@@ -136,7 +147,7 @@ export function Footer() {
                   <ul className="site-footer__links">
                     {column.links.map((link) => (
                       <li key={link.label}>
-                        {link.external ? (
+                        {'external' in link && link.external ? (
                           <a
                             href={link.href}
                             target="_blank"
