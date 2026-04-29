@@ -1,31 +1,39 @@
-import Image from "next/image";
 import { HeroSectionHome } from "@/components/sections/HeroSectionHome";
 import { MarqueeSection } from "@/components/sections/MarqueeSection";
 import { SectionTitle } from "@/components/sections/SectionTitle";
-import { WhatWeDoSection } from "@/components/sections/WhatWeDoSection";
+import { Services } from "@/components/sections/Services";
 import { ProjectsGrid } from '@/components/sections/ProjectsGrid';
+import { QuickEstimateCalculator } from '@/components/sections/QuickEstimateCalculator';
+import { FundCard } from "@/components/cards/FundCard";
 import { projects } from '@/data/projects';
 import { Button } from "@/components/ui/Button";
 
 export default function Home() {
   return (
       <main className="page-wrap">
-        {/* <Navbar /> */}
         <HeroSectionHome />
         <MarqueeSection 
           logoSet="stack"
           text="Используем проверенный стек для&nbsp;дизайна, разработки и&nbsp;контента"
         />
-        <WhatWeDoSection />
+        {/* <AboutSectionHome /> */}
+        <Services />
         <SectionTitle />
         <ProjectsGrid projects={projects} limit={6} />
         <MarqueeSection 
-          logoSet="stack"
+          logoSet="clients"
           text="Используем проверенный стек для&nbsp;дизайна, разработки и&nbsp;контента"
           action={
-            <Button children='Связаться' variant='primary' withDot />
+            <Button variant='primary' withDot>Связаться</Button>
           }
         />
+        <FundCard
+          fundName="KittensPittens"
+          fundDescription="Ежемесячно выбираем фонд и отправляем 5% от выручки на поддержку."
+          imageSrc="/assets/images/fund.jpg"
+          imageAlt="Команда фонда Котики"
+        />
+        <QuickEstimateCalculator />
       </main>
   );
 }

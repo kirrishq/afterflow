@@ -15,7 +15,7 @@ export const projects: Project[] = [
     href: '/work/project-two',
     services: ['Branding', 'Web'],
     year: '2022',
-    imageSrc: '/images/projects/project-two.jpg',
+    imageSrc: '/assets/projects/ultracore/ultracore-thumbnail.png',
     imageAlt: 'Project Two preview',
     colSpan: 1,
   },

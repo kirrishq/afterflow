@@ -1,10 +1,12 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { useMemo, useState } from 'react'
+import { useState, useEffect, useRef, useCallback } from 'react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
 import { Button } from '@/components/ui/Button'
+import { Logo } from '../ui/Logo'
 
 type NavItem = {
   label: string
@@ -18,13 +20,7 @@ const navItems: NavItem[] = [
   { label: 'О нас', href: '/about' },
 ]
 
-function BurgerButton({
-  isOpen,
-  onClick,
-}: {
-  isOpen: boolean
-  onClick: () => void
-}) {
+function BurgerButton({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
   return (
     <button
       type="button"
@@ -40,26 +36,16 @@ function BurgerButton({
   )
 }
 
-function MobileMenu({
-  isOpen,
-  onClose,
-  pathname,
-}: {
-  isOpen: boolean
-  onClose: () => void
-  pathname: string
-}) {
+function MobileMenu({ isOpen, onClose, pathname }: { isOpen: boolean; onClose: () => void; pathname: string }) {
   return (
-    <div className={`mobile-menu ${isOpen ? 'is-open' : ''}`}>
+    <div className={`mobile-menu ${isOpen ? 'is-open' : ''}`} aria-hidden={!isOpen}>
       <button
         type="button"
         className={`mobile-menu__backdrop ${isOpen ? 'is-open' : ''}`}
         onClick={onClose}
         aria-label="Закрыть меню"
       />
-
       <div className={`mobile-menu__panel ${isOpen ? 'is-open' : ''}`}>
-
         <nav className="mobile-menu__nav">
           {navItems.map((item) => {
             const isActive = pathname === item.href
@@ -75,7 +61,6 @@ function MobileMenu({
             )
           })}
         </nav>
-
         <div className="mobile-menu__footer">
           <Button variant="secondary" withDot>
             Связаться
@@ -89,56 +74,103 @@ function MobileMenu({
 export function Navbar() {
   const pathname = usePathname()
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
+  const [pillStyle, setPillStyle] = useState({ width: 0, x: 0 })
+  const [pillReady, setPillReady] = useState(false)
 
-  const isHome = pathname === '/'
+  const navItemsRef = useRef<HTMLDivElement>(null)
+  const btnRefs = useRef<(HTMLAnchorElement | null)[]>([])
 
-  const logoText = useMemo(() => {
-    return isHome ? 'Afterflow' : 'Afterflow Studio'
-  }, [isHome])
+  useEffect(() => {
+  const handleScroll = () => {
+    setScrolled(window.scrollY > window.innerHeight)
+  }
+  handleScroll()
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  return () => window.removeEventListener('scroll', handleScroll)
+}, [])
+
+  const updatePill = useCallback((animate = true) => {
+    const activeIndex = navItems.findIndex((item) => item.href === pathname)
+    const activeBtn = btnRefs.current[activeIndex]
+    if (!activeBtn || !navItemsRef.current) return
+    const containerLeft = navItemsRef.current.getBoundingClientRect().left
+    const btnRect = activeBtn.getBoundingClientRect()
+    setPillStyle({ width: btnRect.width, x: btnRect.left - containerLeft })
+    if (!animate) { setTimeout(() => setPillReady(true), 10) } else { setPillReady(true) }
+  }, [pathname])
+
+  useEffect(() => {
+    setPillReady(false)
+    const timer = setTimeout(() => updatePill(false), 60)
+    return () => clearTimeout(timer)
+  }, [pathname, updatePill])
+
+  useEffect(() => {
+    const handler = () => updatePill(false)
+    window.addEventListener('resize', handler)
+    return () => window.removeEventListener('resize', handler)
+  }, [updatePill])
 
   return (
     <>
       <header className="navbar">
-        <div className="navbar__inner">
-          <div className="navbar__left">
-            <Link href="/" className="navbar__logo" aria-label="На главную">
-              <span className="navbar__logo-text">{logoText}</span>
-            </Link>
 
-            <nav className="navbar__nav" aria-label="Main Nav">
-              {navItems.map((item) => {
-                const isActive = pathname === item.href
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`navbar__link ${isActive ? 'is-active' : ''}`}
-                  >
-                    <span className="navbar__link-text">{item.label}</span>
-                    <span className="navbar__link-line" />
-                  </Link>
-                )
-              })}
-            </nav>
+        {/* Лого */}
+          <Logo />
+
+        {/* Nav capsule — справа, desktop */}
+        <div className={`navbar__capsule ${scrolled ? 'is-scrolled' : ''}`}>
+          <div ref={navItemsRef} className="navbar__nav-items">
+            <div
+              className="navbar__pill"
+              aria-hidden="true"
+              style={{
+                width: pillStyle.width,
+                transform: `translateX(${pillStyle.x}px)`,
+                transition: pillReady
+                  ? 'transform 0.5s cubic-bezier(0.34,1.2,0.64,1), width 0.5s cubic-bezier(0.34,1.2,0.64,1)'
+                  : 'none',
+              }}
+            />
+            {navItems.map((item, index) => {
+              const isActive = pathname === item.href
+              return (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  ref={(el) => { btnRefs.current[index] = el }}
+                  className={`navbar__link ${isActive ? 'is-active' : ''}`}
+                  aria-current={isActive ? 'page' : undefined}
+                >
+                  <span className="navbar__link-text">{item.label}</span>
+                </Link>
+              )
+            })}
           </div>
 
-          <div className="navbar__right">
-            <ThemeToggle />
+          <div className="navbar__divider" aria-hidden="true" />
+          <ThemeToggle />
 
-            <div className="navbar__desktop-action">
-              <Button variant="primary" withDot>
-                Связаться
-              </Button>
-            </div>
-
-            <div className="navbar__mobile-toggle">
-              <BurgerButton
-                isOpen={isMobileMenuOpen}
-                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              />
-            </div>
+          {/* Кнопка появляется после скролла */}
+          <div className={`navbar__contact ${scrolled ? 'is-visible' : ''}`} aria-hidden={!scrolled}>
+            <div className="navbar__divider" aria-hidden="true" />
+            <Button variant="primary" withDot>
+              Связаться
+            </Button>
           </div>
         </div>
+
+        {/* Mobile capsule — лого уже слева, здесь toggle + бургер */}
+        <div className="navbar__mobile-capsule">
+          <ThemeToggle />
+          <div className="navbar__divider" aria-hidden="true" />
+          <BurgerButton
+            isOpen={isMobileMenuOpen}
+            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+          />
+        </div>
+
       </header>
 
       <MobileMenu

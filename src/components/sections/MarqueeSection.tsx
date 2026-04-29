@@ -1,10 +1,14 @@
+'use client'
+
 import type { ReactNode } from 'react'
+import { useTheme } from 'next-themes'
 import { marqueeLogos } from '@/data/marqueeLogos'
 
 type LogoSetKey = keyof typeof marqueeLogos
 
 type LogoItem = {
-  src: string
+  srcLight: string
+  srcDark?: string
   alt: string
 }
 
@@ -40,11 +44,12 @@ export function MarqueeSection({
   action,
   className = '',
 }: Props) {
+  const { resolvedTheme } = useTheme()
   const items = logoSet ? marqueeLogos[logoSet] : (logos ?? [])
   const duplicated = [...items, ...items]
 
   return (
-    <section className={`section marquee-stack mt-8 ${className}`}>
+    <section className={`section marquee-stack ${className}`}>
       <div className="container">
         <div className="flex flex-col md:flex-row items-start md:items-center gap-5">
           <div className="marquee-stack__intro">
@@ -52,29 +57,35 @@ export function MarqueeSection({
               {icon}
             </div>
 
-            {text && (
-              <p className="heading">{text}</p>
-            )}
+            {text && <p className="heading">{text}</p>}
           </div>
 
           <div className="marquee-stack__viewport">
             <div className="marquee-stack__track">
-              {duplicated.map((logo, index) => (
-                <div className="marquee-stack__item" key={`${logo.src}-${index}`}>
-                  <img
-                    src={`/assets/stack-logos/${logo.src}`}
-                    alt={logo.alt}
-                    className="marquee-stack__logo"
-                  />
-                </div>
-              ))}
+              {duplicated.map((logo, index) => {
+                const src =
+                  resolvedTheme === 'dark'
+                    ? (logo.srcDark ?? logo.srcLight)
+                    : logo.srcLight
+
+                return (
+                  <div className="marquee-stack__item" key={`${logo.alt}-${index}`}>
+                    <img
+                      src={src}
+                      alt={logo.alt}
+                      className="marquee-stack__logo"
+                    />
+                  </div>
+                )
+              })}
             </div>
           </div>
+
           {action && (
-              <div className="flex flex-col w-full md:w-auto mt-4 md:mt-0">
-                {action}
-              </div>
-            )}
+            <div className="flex flex-col w-full md:w-auto mt-4 md:mt-0">
+              {action}
+            </div>
+          )}
         </div>
       </div>
     </section>

@@ -294,7 +294,7 @@ export function NeuroBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 h-full w-full"
+      className="absolute inset-0 h-full w-full z-0"
       aria-hidden="true"
     />
   )
