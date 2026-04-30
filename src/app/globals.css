@@ -797,7 +797,8 @@ h1, h2, h3, h4, h5, h6,
   height: 48px;
   color: var(--color-text-primary);
   flex-shrink: 0;
-  animation: marquee-icon-spin 10s linear infinite;
+  transform: rotate(var(--marquee-icon-rotation, 0deg));
+  will-change: transform;
 }
 
 .services-wrap > *:first-child {
