@@ -4,6 +4,7 @@ export function SectionTitle() {
   return (
     <div className="section">
         <div className="container">
+            <div className="border-bottom mb-8 md:mb-12"></div>
             {/* <div className="mt-32">
                 <div className='flex items-center gap-2'>
                     <div className='button__dot'></div>
