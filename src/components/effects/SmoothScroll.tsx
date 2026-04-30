@@ -17,16 +17,24 @@ export function SmoothScroll() {
       return
     }
 
-    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches
+    const isFinePointer = window.matchMedia('(pointer: fine)').matches
+    if (!isDesktop || !isFinePointer) {
+      if (window.__lenis) {
+        window.__lenis.destroy()
+        delete window.__lenis
+      }
+      return
+    }
 
     const lenis = new Lenis({
       autoRaf: false,
       smoothWheel: true,
-      syncTouch: true,
-      wheelMultiplier: isTouch ? 1 : 0.92,
+      syncTouch: false,
+      wheelMultiplier: 0.92,
       touchMultiplier: 1,
-      lerp: isTouch ? 0.1 : 0.085,
-      duration: isTouch ? 0.95 : 1.1,
+      lerp: 0.085,
+      duration: 1.1,
     })
 
     window.__lenis = lenis
