@@ -16,6 +16,18 @@ type TransitionDocument = Document & {
   startViewTransition?: (update: () => void | Promise<void>) => ViewTransitionLike
 }
 
+function scrollToTopImmediate() {
+  if (typeof window === 'undefined') return
+
+  const lenis = window.__lenis
+  if (lenis) {
+    lenis.scrollTo(0, { immediate: true, force: true })
+    return
+  }
+
+  window.scrollTo({ top: 0, left: 0 })
+}
+
 function isModifiedEvent(event: MouseEvent) {
   return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
 }
@@ -60,7 +72,7 @@ export function PageTransition({ children }: Props) {
 
       if (!doc.startViewTransition) {
         navigate()
-        window.scrollTo({ top: 0, left: 0 })
+        scrollToTopImmediate()
         return
       }
 
@@ -73,7 +85,7 @@ export function PageTransition({ children }: Props) {
 
       transition.updateCallbackDone?.then(() => {
         if (shouldScrollTopRef.current) {
-          window.scrollTo({ top: 0, left: 0 })
+          scrollToTopImmediate()
         }
       })
 
@@ -89,7 +101,7 @@ export function PageTransition({ children }: Props) {
 
   useEffect(() => {
     if (isTransitioningRef.current && shouldScrollTopRef.current) {
-      window.scrollTo({ top: 0, left: 0 })
+      scrollToTopImmediate()
     }
   }, [pathname])
 

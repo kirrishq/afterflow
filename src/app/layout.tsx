@@ -6,6 +6,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { TextMaskReveal } from '@/components/effects/TextMaskReveal';
 import { PageTransition } from '@/components/effects/PageTransition';
+import { SmoothScroll } from '@/components/effects/SmoothScroll';
 // import { BottomFade } from '@/components/ui/BottomFade'
 
 const namu = localFont({
@@ -58,6 +59,7 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className={`${namu.variable} ${manrope.variable}`}>
+        <SmoothScroll />
         <Navbar />
         <TextMaskReveal />
         <PageTransition>{children}</PageTransition>
