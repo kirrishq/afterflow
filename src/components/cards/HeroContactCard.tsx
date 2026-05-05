@@ -9,7 +9,7 @@ type HeroContactCardProps = {
 export function HeroContactCard({ className = '' }: HeroContactCardProps) {
   return (
     <div className={`home-header_contact-card ${className}`.trim()}>
-      <div className="home-header_contact-media">
+      {/* <div className="home-header_contact-media">
         <Image
           src="/assets/projects/ultracore/ultracore-thumbnail.png"
           alt="Команда Afterflow"
@@ -17,7 +17,7 @@ export function HeroContactCard({ className = '' }: HeroContactCardProps) {
           sizes="(max-width: 768px) 64px, 96px"
           className="home-header_contact-pic"
         />
-      </div>
+      </div> */}
 
       <div className="home-header_contact-info">
         <div className="home-header_contact-heading">

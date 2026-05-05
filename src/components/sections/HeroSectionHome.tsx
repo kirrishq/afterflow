@@ -17,7 +17,7 @@ export function HeroSectionHome() {
           <NeuroBackground />
 
           <div className='hidden md:grid md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-6 gap-2 md:gap-4 z-2'>
-            <Tag label='Веб-дизайн' variant='dark'/>
+            <Tag label='Дизайн' variant='dark'/>
             <Tag label='Разработка' variant='dark'/>
             <Tag label='Сайты' variant='dark'/>
             <Tag label='Приложения' variant='dark'/>
@@ -25,11 +25,10 @@ export function HeroSectionHome() {
             <Tag label='Чат-боты' variant='dark'/>
           </div>
 
-          <div className='flex flex-col md:flex-row justify-start md:justify-between items-start md:items-end gap-4 z-2'>
+          <div className='flex flex-col flex-1 md:flex-row justify-between items-start md:items-end gap-4 z-2'>
             <div>
               <p className='heading-lg max-w-xl md:mb-0 mb-6 text-white'>
-                Создаем эффективные сайты
-                — инструмент роста бизнеса, который работает 24/7
+                Создаем сайты и продукты, которые приводят клиентов и&nbsp;упрощают процессы
               </p>
             </div>
             <HeroContactCard />

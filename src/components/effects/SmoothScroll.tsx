@@ -13,13 +13,18 @@ declare global {
 
 export function SmoothScroll() {
   useEffect(() => {
+    const userAgent = navigator.userAgent
+    const isSafariBrowser =
+      /Safari/i.test(userAgent) &&
+      !/Chrome|CriOS|Chromium|Edg|OPR|Opera|Firefox|FxiOS/i.test(userAgent)
+
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       return
     }
 
     const isDesktop = window.matchMedia('(min-width: 1024px)').matches
     const isFinePointer = window.matchMedia('(pointer: fine)').matches
-    if (!isDesktop || !isFinePointer) {
+    if (!isDesktop || !isFinePointer || isSafariBrowser) {
       if (window.__lenis) {
         window.__lenis.destroy()
         delete window.__lenis

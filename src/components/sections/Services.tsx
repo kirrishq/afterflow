@@ -1,10 +1,11 @@
 'use client'
 
 import Link from 'next/link'
-import { useRef } from 'react'
+import { useEffect, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import lottie from 'lottie-web'
 import { Button } from '../ui/Button'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -15,22 +16,24 @@ type ServiceItem = {
   imageSrc: string
   imageAlt: string
   tags: string[]
+  animationSrc?: string
 }
 
 const services: ServiceItem[] = [
   {
-    title: 'Дизайн',
-    href: '/services/design',
-    imageSrc: '/assets/projects/ultracore/ultracore-thumbnail.png',
-    imageAlt: 'Дизайн',
-    tags: ['UX/UI', 'Брендинг', 'Лендинги'],
-  },
-  {
     title: 'Разработка',
     href: '/services/development',
-    imageSrc: '/assets/projects/ultracore/ultracore-thumbnail.png',
+    imageSrc: '/assets/images/development.jpg',
     imageAlt: 'Разработка',
     tags: ['Next.js', 'Webflow', 'Адаптив'],
+    // animationSrc: '/assets/animations/development.json',
+  },
+  {
+    title: 'Дизайн',
+    href: '/services/design',
+    imageSrc: '/assets/images/design.jpg',
+    imageAlt: 'Дизайн',
+    tags: ['UX/UI', 'Брендинг', 'Лендинги'],
   },
   {
     title: 'Автоматизация',
@@ -48,6 +51,61 @@ const services: ServiceItem[] = [
   },
 ]
 
+function ServiceLottie({ path, title, fallbackSrc }: { path: string; title: string; fallbackSrc: string }) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const fallbackRef = useRef<HTMLImageElement | null>(null)
+
+  useEffect(() => {
+    if (!containerRef.current) return
+
+    const saveDataEnabled =
+      'connection' in navigator &&
+      Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const userAgent = navigator.userAgent
+    const isSafariBrowser =
+      /Safari/i.test(userAgent) &&
+      !/Chrome|CriOS|Chromium|Edg|OPR|Opera|Firefox|FxiOS/i.test(userAgent)
+    const shouldAnimate = !saveDataEnabled && !prefersReducedMotion && !isSafariBrowser
+
+    if (!shouldAnimate) return
+
+    const animation = lottie.loadAnimation({
+      container: containerRef.current,
+      renderer: 'svg',
+      loop: true,
+      autoplay: true,
+      path,
+      rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+      },
+    })
+
+    animation.addEventListener('DOMLoaded', () => {
+      if (fallbackRef.current) {
+        fallbackRef.current.style.opacity = '0'
+      }
+    })
+
+    return () => {
+      animation.destroy()
+    }
+  }, [path])
+
+  return (
+    <div className="relative h-full w-full" aria-label={title} role="img">
+      <div ref={containerRef} className="absolute inset-0 h-full w-full" />
+      <img
+        ref={fallbackRef}
+        src={fallbackSrc}
+        alt={title}
+        className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        loading="lazy"
+      />
+    </div>
+  )
+}
+
 export function Services() {
   const sectionRef = useRef<HTMLElement | null>(null)
 
@@ -57,6 +115,19 @@ export function Services() {
       const masks = gsap.utils.toArray<HTMLElement>('[data-wwd-mask]')
       const images = gsap.utils.toArray<HTMLElement>('[data-wwd-image]')
       const arrows = gsap.utils.toArray<HTMLElement>('[data-wwd-arrow]')
+      const saveDataEnabled =
+        'connection' in navigator &&
+        Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
+      const shouldSkipMaskAnimation =
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches || saveDataEnabled
+
+      if (shouldSkipMaskAnimation) {
+        gsap.set(cards, { opacity: 1, clearProps: 'transform,willChange' })
+        gsap.set(masks, { clipPath: 'inset(0% 0% 0% 0% round 1rem)', clearProps: 'willChange' })
+        gsap.set(images, { yPercent: 0, scale: 1, clearProps: 'willChange,transform' })
+        gsap.set(arrows, { opacity: 1, x: 0, clearProps: 'willChange,transform' })
+        return
+      }
 
       gsap.set(cards, { opacity: 1 })
       gsap.set(masks, { clipPath: 'inset(0% 100% 0% 0% round 1rem)' })
@@ -150,12 +221,16 @@ export function Services() {
                         data-wwd-image
                         className="absolute inset-0 will-change-transform"
                       >
-                        <img
-                          src={item.imageSrc}
-                          alt={item.imageAlt}
-                          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
-                          loading="lazy"
-                        />
+                        {item.animationSrc ? (
+                          <ServiceLottie path={item.animationSrc} title={item.imageAlt} fallbackSrc={item.imageSrc} />
+                        ) : (
+                          <img
+                            src={item.imageSrc}
+                            alt={item.imageAlt}
+                            className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        )}
                       </div>
                     </div>
 

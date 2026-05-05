@@ -49,7 +49,7 @@ export default function ServicesPage() {
               <div className="button__dot fill" />
               <p className="heading-sm uppercase font-light">Услуги</p>
             </div>
-            <h1 className="heading-2xl services-page__title">
+            <h1 className="heading-lg max-w-3xl">
               Закрываем цикл: от смысла и дизайна до запуска и масштабирования.
             </h1>
             <p className="paragraph inverted services-page__lead">

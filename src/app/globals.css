@@ -329,10 +329,9 @@ h1, h2, h3, h4, h5, h6,
   position: relative;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
-  gap: var(--space-3);
   align-items: stretch;
   min-height: 96px;
-  width: min(100%, 460px);
+  width: auto;
   padding: var(--space-3);
   border-radius: var(--radius-md);
   background: rgba(255, 255, 255, 0.08);

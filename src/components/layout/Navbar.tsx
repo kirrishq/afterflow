@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { ThemeToggle } from '@/components/ui/ThemeToggle'
@@ -114,11 +113,9 @@ export function Navbar() {
 
   return (
     <>
+      <Logo className="logo-wrapper logo-wrapper--difference logo-wrapper--fixed" />
+
       <header className="navbar">
-
-        {/* Лого */}
-          <Logo />
-
         {/* Nav capsule — справа, desktop */}
         <div className={`navbar__capsule ${scrolled ? 'is-scrolled' : ''}`}>
           <div ref={navItemsRef} className="navbar__nav-items">

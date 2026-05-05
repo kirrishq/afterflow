@@ -8,11 +8,18 @@ export function TextMaskReveal() {
   const pathname = usePathname()
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const targets = gsap.utils.toArray<HTMLElement>('main h1, main h2, main h3, main p')
+    const saveDataEnabled =
+      'connection' in navigator &&
+      Boolean((navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData)
+    const shouldSkipMaskAnimation =
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches || saveDataEnabled
+
+    if (shouldSkipMaskAnimation) {
+      gsap.set(targets, { clearProps: 'transform,opacity,willChange,clipPath' })
       return
     }
 
-    const targets = gsap.utils.toArray<HTMLElement>('main h1, main h2, main h3, main p')
     const animations: gsap.core.Tween[] = []
     const pending = new Set<HTMLElement>()
     let observer: IntersectionObserver | null = null

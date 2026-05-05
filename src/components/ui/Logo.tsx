@@ -1,8 +1,12 @@
 import Link from 'next/link'
 
-export function Logo() {
+type LogoProps = {
+  className?: string
+}
+
+export function Logo({ className = 'logo-wrapper logo-wrapper--difference' }: LogoProps) {
   return (
-    <Link href="/" className="logo-wrapper mix-blend-difference relative" aria-label="На главную">
+    <Link href="/" className={className} aria-label="На главную">
       <svg width="80" height="30" viewBox="0 0 80 30" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M0 29.7436H6.66667L11.8031 17.9487H5.13648L0 29.7436Z" fill="black"/>
         <path d="M19.4872 0H12.8205L5.67413 16.4103H12.3408L19.4872 0Z" fill="black"/>
