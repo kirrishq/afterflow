@@ -16,6 +16,52 @@ type TransitionDocument = Document & {
   startViewTransition?: (update: () => void | Promise<void>) => ViewTransitionLike
 }
 
+const SCROLL_STORAGE_KEY = 'afterflow_scroll_positions_v1'
+
+function readScrollPositions(): Record<string, number> {
+  if (typeof window === 'undefined') return {}
+
+  try {
+    const raw = window.sessionStorage.getItem(SCROLL_STORAGE_KEY)
+    if (!raw) return {}
+    const parsed = JSON.parse(raw) as Record<string, number>
+    return parsed ?? {}
+  } catch {
+    return {}
+  }
+}
+
+function writeScrollPositions(positions: Record<string, number>) {
+  if (typeof window === 'undefined') return
+  try {
+    window.sessionStorage.setItem(SCROLL_STORAGE_KEY, JSON.stringify(positions))
+  } catch {
+    // ignore storage errors
+  }
+}
+
+function saveScrollPosition(pathname: string) {
+  if (typeof window === 'undefined') return
+  const positions = readScrollPositions()
+  positions[pathname] = window.scrollY
+  writeScrollPositions(positions)
+}
+
+function restoreScrollPosition(pathname: string) {
+  if (typeof window === 'undefined') return
+  const positions = readScrollPositions()
+  const top = positions[pathname]
+  if (typeof top !== 'number') return
+
+  const lenis = window.__lenis
+  if (lenis) {
+    lenis.scrollTo(top, { immediate: true, force: true })
+    return
+  }
+
+  window.scrollTo({ top, left: 0 })
+}
+
 function scrollToTopImmediate() {
   if (typeof window === 'undefined') return
 
@@ -37,6 +83,33 @@ export function PageTransition({ children }: Props) {
   const pathname = usePathname()
   const isTransitioningRef = useRef(false)
   const shouldScrollTopRef = useRef(false)
+  const isPopNavigationRef = useRef(false)
+
+  useEffect(() => {
+    let ticking = false
+
+    const onScroll = () => {
+      if (ticking) return
+      ticking = true
+      window.requestAnimationFrame(() => {
+        saveScrollPosition(window.location.pathname)
+        ticking = false
+      })
+    }
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
+
+  useEffect(() => {
+    const onPopState = () => {
+      isPopNavigationRef.current = true
+    }
+
+    window.addEventListener('popstate', onPopState)
+    return () => window.removeEventListener('popstate', onPopState)
+  }, [])
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
@@ -66,6 +139,7 @@ export function PageTransition({ children }: Props) {
       if (nextPath === currentPath || isTransitioningRef.current) return
 
       event.preventDefault()
+      saveScrollPosition(window.location.pathname)
 
       const navigate = () => router.push(nextPath, { scroll: false })
       const doc = document as TransitionDocument
@@ -100,6 +174,12 @@ export function PageTransition({ children }: Props) {
   }, [router])
 
   useEffect(() => {
+    if (isPopNavigationRef.current) {
+      restoreScrollPosition(window.location.pathname)
+      isPopNavigationRef.current = false
+      return
+    }
+
     if (isTransitioningRef.current && shouldScrollTopRef.current) {
       scrollToTopImmediate()
     }

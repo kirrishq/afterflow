@@ -14,17 +14,22 @@ export const marqueeLogos: LogoSet = {
   stack: [
     {
       srcLight: 'assets/stack-logos/figma.svg',
-      srcDark: 'assets/stack-logos/figma-light.svg',
+      srcDark: 'assets/stack-logos/figma.svg',
       alt: 'Figma',
     },
     {
+      srcLight: 'assets/stack-logos/adobe.svg',
+      srcDark: 'assets/stack-logos/adobe-white.svg',
+      alt: 'Adobe',
+    },
+    {
       srcLight: 'assets/stack-logos/tilda.png',
-      srcDark: 'assets/stack-logos/tilda-light.png',
+      srcDark: 'assets/stack-logos/tilda-white.png',
       alt: 'Tilda',
     },
     {
       srcLight: 'assets/stack-logos/webflow.svg',
-      srcDark: 'assets/stack-logos/webflow-light.svg',
+      srcDark: 'assets/stack-logos/webflow.svg',
       alt: 'Webflow',
     },
     {
@@ -33,8 +38,8 @@ export const marqueeLogos: LogoSet = {
       alt: 'React',
     },
     {
-      srcLight: 'assets/stack-logos/nextjs.svg',
-      srcDark: 'assets/stack-logos/nextjs-light.svg',
+      srcLight: 'assets/stack-logos/next.svg',
+      srcDark: 'assets/stack-logos/next-white.svg',
       alt: 'Next.js',
     },
   ],
@@ -74,6 +79,16 @@ export const marqueeLogos: LogoSet = {
       srcDark: 'assets/clients-logos/nexa-ai-light.svg',
       alt: 'NEXA AI',
     },
+    {
+      srcLight: 'assets/clients-logos/vulkan-nova-rus.svg',
+      srcDark: 'assets/clients-logos/vulkan-nova-rus.svg',
+      alt: 'Вулкан Нова Рус',
+    },
+    {
+      srcLight: 'assets/clients-logos/torsunov.svg',
+      srcDark: 'assets/clients-logos/torsunov.svg',
+      alt: 'Доктор Торсунов',
+    }
   ],
   partners: [
     {

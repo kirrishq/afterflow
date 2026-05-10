@@ -6,11 +6,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import lottie from 'lottie-web'
-import { Button } from '../ui/Button'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type ServiceItem = {
+type CaseItem = {
   title: string
   href: string
   imageSrc: string
@@ -19,35 +18,34 @@ type ServiceItem = {
   animationSrc?: string
 }
 
-const services: ServiceItem[] = [
+const cases: CaseItem[] = [
   {
-    title: 'Разработка',
-    href: '/services/development',
-    imageSrc: '/assets/images/development.jpg',
-    imageAlt: 'Разработка',
-    tags: ['Next.js', 'Webflow', 'Адаптив'],
-    // animationSrc: '/assets/animations/development.json',
+    title: 'Ультракор',
+    href: 'https://ultra-core.ru',
+    imageSrc: '/assets/projects/ultracore/ultracore.png',
+    imageAlt: 'Кейс Ультракор',
+    tags: ['Медицина', 'Разработка'],
   },
   {
-    title: 'Дизайн',
-    href: '/services/design',
-    imageSrc: '/assets/images/design.jpg',
-    imageAlt: 'Дизайн',
-    tags: ['UX/UI', 'Брендинг', 'Лендинги'],
+    title: 'Два хвоста',
+    href: 'https://two-tails.ru',
+    imageSrc: '/assets/projects/ultracore/two-tails.png',
+    imageAlt: 'Кейс Два хвоста',
+    tags: ['Ecom', 'Разработка'],
   },
   {
-    title: 'Автоматизация',
-    href: '/services/automatisation',
-    imageSrc: '/assets/projects/ultracore/ultracore-thumbnail.png',
-    imageAlt: 'Автоматизация',
-    tags: ['CRM', 'Интеграции', 'Сценарии'],
+    title: 'SOHA SMM',
+    href: 'https://sohasmm.com',
+    imageSrc: '/assets/projects/ultracore/soha-smm.png',
+    imageAlt: 'Кейс SOHA SMM',
+    tags: ['Edtech', 'Верстка'],
   },
   {
-    title: 'ИИ разработка',
-    href: '/services/ai',
-    imageSrc: '/assets/projects/ultracore/ultracore-thumbnail.png',
-    imageAlt: 'ИИ разработка',
-    tags: ['Боты', 'AI-ассистенты', 'RAG'],
+    title: 'Вулкан Нова Рус',
+    href: 'https://vulkan-nova.ru',
+    imageSrc: '/assets/projects/ultracore/vulkan-nova-rus.png',
+    imageAlt: 'Кейс Вулкан Нова Рус',
+    tags: ['Дизайн', 'Разработка'],
   },
 ]
 
@@ -196,18 +194,19 @@ export function Services() {
     <section ref={sectionRef} className="section">
       <div className="container">
         <div className="relative">
-          <div className="md:absolute md:left-0 md:top-0 md:mb-0">
+          <div className="md:absolute md:left-0 md:top-0 md:mb-0 mb-4">
               <div className='flex items-center gap-2'>
                 <div className='button__dot fill'></div>
-                <h2 className='heading-sm uppercase'>Услуги</h2>
+                <h2 className='heading-sm uppercase'>Портфолио</h2>
               </div>
           </div>
 
           <div className="services-wrap flex flex-col">
-            {services.map((item) => (
+            {cases.map((item) => (
               <Link
                 key={item.title}
                 href={item.href}
+                target='_blank'
                 data-wwd-card
                 className="group grid gap-y-6 border-bottom py-6 md:grid-cols-2 md:gap-x-8 md:py-4"
               >
@@ -231,6 +230,7 @@ export function Services() {
                             loading="lazy"
                           />
                         )}
+                        <p>hello</p>
                       </div>
                     </div>
 
@@ -264,7 +264,7 @@ export function Services() {
                   >
                     {item.title}
                   </h3>
-                  <div className="flex flex-wrap items-center gap-2 md:justify-end">
+                  <div className="flex flex-wrap items-center gap-2 md:justify-end tags-wrap">
                     {item.tags.map((tag) => (
                       <span key={`${item.title}-${tag}`} className="service-tag">
                         {tag}
@@ -274,17 +274,6 @@ export function Services() {
                 </div>
               </Link>
             ))}
-              <div className="grid gap-y-6 py-6 md:grid-cols-2 md:gap-x-8 md:py-4">
-                <div className="flex flex-col items-start mt-4 md:col-start-2 md:max-w-md">
-                  <p className="heading mb-3">
-                    Помогаем брендам расти и&nbsp;рассказывать свои истории миру.
-                  </p>
-                  <p className="paragraph mb-6">
-                    Мы не стараемся впечатлить — мы стараемся решить. Впечатление приходит с&nbsp;результатом.
-                  </p>
-                  <Button variant="primary" withDot>Все услуги</Button>
-                </div>
-              </div>
             </div>
           </div>
         </div>

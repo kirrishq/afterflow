@@ -13,6 +13,15 @@ declare global {
 
 export function SmoothScroll() {
   useEffect(() => {
+    const ENABLE_SMOOTH_SCROLL = false
+    if (!ENABLE_SMOOTH_SCROLL) {
+      if (window.__lenis) {
+        window.__lenis.destroy()
+        delete window.__lenis
+      }
+      return
+    }
+
     const userAgent = navigator.userAgent
     const isSafariBrowser =
       /Safari/i.test(userAgent) &&

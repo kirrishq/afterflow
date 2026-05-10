@@ -8,6 +8,8 @@ import { TextMaskReveal } from '@/components/effects/TextMaskReveal';
 import { PageTransition } from '@/components/effects/PageTransition';
 import { SmoothScroll } from '@/components/effects/SmoothScroll';
 import { ScrollDirectionSync } from '@/components/effects/ScrollDirectionSync';
+import { CookieBanner } from '@/components/ui/CookieBanner';
+import { ThemeProvider } from '@/components/providers/ThemeProvider';
 // import { BottomFade } from '@/components/ui/BottomFade'
 
 const namu = localFont({
@@ -60,12 +62,15 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body className={`${namu.variable} ${manrope.variable}`}>
-        <SmoothScroll />
-        <ScrollDirectionSync />
-        <Navbar />
-        <TextMaskReveal />
-        <PageTransition>{children}</PageTransition>
-        <Footer />
+        <ThemeProvider>
+          <SmoothScroll />
+          <ScrollDirectionSync />
+          <Navbar />
+          <TextMaskReveal />
+          <PageTransition>{children}</PageTransition>
+          <CookieBanner />
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   )

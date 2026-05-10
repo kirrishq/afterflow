@@ -5,6 +5,7 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
+import { usePathname } from 'next/navigation'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -24,7 +25,7 @@ const footerNav: FooterColumn[] = [
     title: 'Навигация',
     links: [
       { label: 'Главная', href: '/' },
-      { label: 'Проекты', href: '/work' },
+      { label: 'Проекты', href: '/projects' },
       { label: 'Услуги', href: '/services' },
     ],
   },
@@ -33,8 +34,7 @@ const footerNav: FooterColumn[] = [
     links: [
       { label: 'Дизайн', href: '/services/design' },
       { label: 'Разработка', href: '/services/development' },
-      { label: 'Автоматизация', href: '/services/automatisation' },
-      { label: 'ИИ-разработка', href: '/services/ai' },
+      { label: 'Автоматизация', href: '/services/automation' },
     ],
   },
   {
@@ -48,6 +48,7 @@ const footerNav: FooterColumn[] = [
 
 export function Footer() {
   const rootRef = useRef<HTMLElement | null>(null)
+  const pathname = usePathname()
 
   useGSAP(
     () => {
@@ -67,7 +68,6 @@ export function Footer() {
             scrollTrigger: {
               trigger: card,
               start: 'top 88%',
-              once: true,
             },
           }
         )
@@ -86,13 +86,14 @@ export function Footer() {
             scrollTrigger: {
               trigger: rootRef.current,
               start: 'top 86%',
-              once: true,
             },
           }
         )
       }
+
+      ScrollTrigger.refresh()
     },
-    { scope: rootRef }
+    { scope: rootRef, dependencies: [pathname], revertOnUpdate: true }
   )
 
   return (

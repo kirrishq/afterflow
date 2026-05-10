@@ -2,6 +2,7 @@ export type Project = {
   title: string
   href: string
   services: string[]
+  serviceKeys: string[]
   year: string
   imageSrc: string
   imageAlt: string
