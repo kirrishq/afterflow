@@ -17,7 +17,7 @@ type SubpageContent = {
 }
 
 const subpageContentMap: Record<string, SubpageContent> = {
-  'development:no-low-code': {
+  'development:nocode': {
     heroLead:
       'No/Low-code разработка подходит, когда важно быстро запустить сайт или магазин и уже в процессе усиливать его по метрикам.',
     attention:
@@ -36,7 +36,7 @@ const subpageContentMap: Record<string, SubpageContent> = {
     priceFrom: 'от 120 000 ₽',
     timelineFrom: 'от 2 недель',
   },
-  'development:react-next': {
+  'development:code': {
     heroLead:
       'Разработка на React и Next.js нужна, когда проект выходит за рамки типовых шаблонов и требует гибкой логики, интеграций и масштабируемости.',
     attention:
@@ -112,7 +112,7 @@ const subpageContentMap: Record<string, SubpageContent> = {
     priceFrom: 'от 70 000 ₽',
     timelineFrom: 'от 1 недели',
   },
-  'design:pdf-books': {
+  'design:books': {
     heroLead:
       'Создаем PDF-книги и гайды как экспертный контент: они помогают собирать лиды, прогревать аудиторию и усиливать доверие.',
     attention:

@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { Breadcrumbs } from '../ui/Breadcrumbs'
 
 type Props = {
   title: string
@@ -36,10 +37,7 @@ export function ServiceSubpageTemplate({
       <section className="section services-page-hero">
         <div className="container inverted">
           <div className="services-page__heading">
-            <div className="flex items-center gap-2">
-              <div className="button__dot fill" />
-              <p className="heading-sm uppercase font-light">Подуслуга</p>
-            </div>
+            <Breadcrumbs />
             <h1 className="heading-lg max-w-3xl">{title}</h1>
             <p className="paragraph inverted services-page__lead">{heroLead}</p>
           </div>

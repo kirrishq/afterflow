@@ -29,7 +29,7 @@ export type ServiceContent = {
 export const servicesCatalog: ServiceContent[] = [
   {
   slug: 'development',
-  title: 'Разработка сайтов',
+  title: 'Разработка сайтов под ключ',
   heroLead:
     'Делаем сайты, которые работают на бизнес — быстро загружаются, удобно редактируются и приносят заявки, а не просто занимают место в интернете.',
 
@@ -53,22 +53,22 @@ export const servicesCatalog: ServiceContent[] = [
     'Архитектура, в которую можно добавлять новые разделы и функции без переписывания',
   ],
 
-  priceFrom: 'от 120 000 ₽',
-  timelineFrom: 'от 2 недель',
+  priceFrom: 'от 80 000 ₽',
+  timelineFrom: 'от 2-х недель',
   tags: ['Сайты', 'Tilda', 'Webflow', 'React', 'Next.js'],
 
   subservices: [
     {
-      slug: 'no-low-code',
-      title: 'No/Low-code',
+      slug: 'nocode',
+      title: 'Разработка сайтов на платформах',
       lead: 'Tilda, Webflow, Framer и другие платформы — когда важно запуститься быстро и управлять сайтом самостоятельно без штатного разработчика.',
       tags: ['Tilda', 'Webflow', 'Framer', 'Shopify', 'InSales'],
-      priceFrom: 'от 120 000 ₽',
+      priceFrom: 'от 80 000 ₽',
       timelineFrom: 'от 2-х недель',
     },
     {
-      slug: 'react-next',
-      title: 'React / Next.js',
+      slug: 'code',
+      title: 'Разработка сайтов на коде',
       lead: 'Кастомная разработка — когда платформы не справляются: нестандартная логика, интеграции с CRM и сервисами, высокая нагрузка, SEO-требования.',
       tags: ['React', 'Next.js', 'TypeScript', 'SSR', 'API'],
       priceFrom: 'от 240 000 ₽',
@@ -95,8 +95,8 @@ export const servicesCatalog: ServiceContent[] = [
       'Готовые макеты и UI-компоненты для быстрой передачи в разработку',
       'Усиление конверсии за счет продуманной структуры и акцентов',
     ],
-    priceFrom: 'от 90 000 ₽',
-    timelineFrom: 'от 10 дней',
+    priceFrom: 'от 10 000 ₽',
+    timelineFrom: 'от 2-х дней',
     tags: ['Сайты', 'Приложения', 'Полиграфия', 'Figma', 'Adobe'],
     subservices: [
       {
@@ -104,24 +104,32 @@ export const servicesCatalog: ServiceContent[] = [
         title: 'Дизайн сайтов',
         lead: 'Лендинги и многостраничные сайты с фокусом на конверсию и понятную иерархию контента.',
         tags: ['Лендинг', 'Корпоративный сайт', 'UI', 'UX'],
+        priceFrom: 'от 40 000 ₽',
+        timelineFrom: 'от 1-й недели',
       },
       {
         slug: 'apps',
         title: 'Дизайн web/mobile приложений',
         lead: 'Проектируем интерфейсы приложений, где пользователю легко выполнять ключевые действия.',
         tags: ['Web app', 'Mobile app', 'User Flow', 'Design System'],
+        priceFrom: 'от 80 000 ₽',
+        timelineFrom: 'от 2-х недели',
       },
       {
         slug: 'print',
         title: 'Полиграфия',
         lead: 'Каталоги, коммерческие предложения и презентационные материалы в едином визуальном стиле.',
         tags: ['Буклеты', 'Каталоги', 'POS-материалы', 'Презентации'],
+        priceFrom: 'от 10 000 ₽',
+        timelineFrom: 'от 2-х дней',
       },
       {
-        slug: 'pdf-books',
+        slug: 'books',
         title: 'PDF-книги и гайды',
         lead: 'Дизайн и верстка PDF-материалов для лид-магнитов, обучения и экспертного контента.',
         tags: ['Lead Magnet', 'PDF', 'E-book', 'Контент-дизайн'],
+        priceFrom: 'от 10 000 ₽',
+        timelineFrom: 'от 3-х дней',
       },
     ],
   },
@@ -144,8 +152,8 @@ export const servicesCatalog: ServiceContent[] = [
       'Прозрачные связки между сервисами, CRM и каналами коммуникации',
       'Масштабируемые сценарии, которые можно наращивать по мере роста компании',
     ],
-    priceFrom: 'от 80 000 ₽',
-    timelineFrom: 'от 1 недели',
+    priceFrom: 'от 3 000 ₽',
+    timelineFrom: 'от 1-го дня',
     tags: ['Чат-боты', 'ИИ-агенты', 'Интеграции', 'CRM'],
     subservices: [
       {
@@ -153,18 +161,24 @@ export const servicesCatalog: ServiceContent[] = [
         title: 'Чат-боты',
         lead: 'Боты для Telegram и других каналов: квалификация лидов, ответы на типовые вопросы, маршрутизация запросов.',
         tags: ['Telegram', 'Сценарии', 'Квалификация лидов', 'Support'],
+        priceFrom: 'от 20 000 ₽',
+        timelineFrom: 'от 1-й недели',
       },
       {
         slug: 'ai-agents',
         title: 'ИИ-агенты',
         lead: 'AI-агенты для внутренних и клиентских процессов: помощь менеджерам, поддержке и маркетингу.',
         tags: ['AI-агенты', 'RAG', 'Knowledge Base', 'Automation'],
+        priceFrom: 'от 30 000 ₽',
+        timelineFrom: 'от 1-й недели',
       },
       {
         slug: 'integrations',
         title: 'Интеграции',
         lead: 'Связываем сайт, CRM, email, мессенджеры и другие сервисы в единую систему.',
         tags: ['CRM', 'API', 'No-code', 'Webhooks'],
+        priceFrom: 'от 3 000 ₽',
+        timelineFrom: 'от 1-го дня',
       },
     ],
   },

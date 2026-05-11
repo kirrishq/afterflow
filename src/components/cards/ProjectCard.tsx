@@ -40,9 +40,9 @@ export function ProjectCard({ project }: Props) {
           {project.services.join(', ')}
         </p>
 
-        <p className="mb-0 text-xs text-[var(--color-text-muted)]">
+        {/* <p className="mb-0 text-xs text-[var(--color-text-muted)]">
           ({project.year})
-        </p>
+        </p> */}
       </div>
     </Link>
   )

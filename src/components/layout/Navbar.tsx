@@ -13,10 +13,9 @@ type NavItem = {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Главная', href: '/' },
-  { label: 'Проекты', href: '/work' },
+  { label: 'Проекты', href: '/projects' },
   { label: 'Услуги', href: '/services' },
-  { label: 'О нас', href: '/about' },
+  // { label: 'О нас', href: '/about' },
 ]
 
 function BurgerButton({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
