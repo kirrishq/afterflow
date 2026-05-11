@@ -13,6 +13,7 @@ type FundCardProps = {
   imageSrc?: string
   imageAlt?: string
   badgeText?: string
+  href?: string
   className?: string
 }
 
@@ -24,6 +25,7 @@ export function FundCard({
   imageSrc = '/assets/projects/ultracore/ultracore-thumbnail.png',
   imageAlt = 'Фото фонда',
   badgeText = '5%',
+  href,
   className = '',
 }: FundCardProps) {
   const rootRef = useRef<HTMLDivElement | null>(null)
@@ -79,10 +81,10 @@ export function FundCard({
           </div>
 
           <div className="fund-card__content-right">
-            <div className="fund-card__badge">
+            {/* <div className="fund-card__badge">
               <span>{badgeText}</span>
-            </div>
-            <Button variant="secondary" withDot className="fund-card__button">
+            </div> */}
+            <Button variant="secondary" withDot href={href} className="fund-card__button" target="_blank">
               Подробнее
             </Button>
           </div>

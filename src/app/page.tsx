@@ -6,6 +6,7 @@ import { ServicesCardsSection } from "@/components/sections/ServicesCardsSection
 import { ProcessSection } from "@/components/sections/ProcessSection";
 import { QuickEstimateCalculator } from '@/components/sections/QuickEstimateCalculator';
 import { FundCard } from "@/components/cards/FundCard";
+import { ServiceCtaCard } from '@/components/sections/ServiceCtaCard';
 
 export default function Home() {
   return (
@@ -29,13 +30,15 @@ export default function Home() {
         />
         <ServicesCardsSection />
         <ProcessSection />
+        <ServiceCtaCard contextTitle="услуги студии" />
         <FundCard
-          fundName="KittensPittens"
+          fundName="Преданное сердце"
           fundDescription="Ежемесячно выбираем фонд и отправляем 5% от выручки на поддержку."
           imageSrc="/assets/images/fund.jpg"
-          imageAlt="Команда фонда Котики"
+          imageAlt="Фонд преданное сердце"
+          href="https://predannoeserdce.ru/"
         />
-        <QuickEstimateCalculator />
+        {/* <QuickEstimateCalculator /> */}
       </main>
   );
 }

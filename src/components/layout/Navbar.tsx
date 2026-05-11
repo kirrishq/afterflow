@@ -61,7 +61,10 @@ function MobileMenu({ isOpen, onClose, pathname }: { isOpen: boolean; onClose: (
           })}
         </nav>
         <div className="mobile-menu__footer">
-          <Button variant="secondary" withDot>
+          <Button 
+          variant="secondary" 
+          withDot
+          >
             Связаться
           </Button>
         </div>
@@ -152,7 +155,9 @@ export function Navbar() {
           {/* Кнопка появляется после скролла */}
           <div className={`navbar__contact ${scrolled ? 'is-visible' : ''}`} aria-hidden={!scrolled}>
             <div className="navbar__divider" aria-hidden="true" />
-            <Button variant="primary" withDot>
+            <Button 
+            variant="primary" 
+            withDot>
               Связаться
             </Button>
           </div>

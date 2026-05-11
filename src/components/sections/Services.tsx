@@ -214,7 +214,7 @@ export function Services() {
                   className="md:order-last overflow-hidden rounded-[1rem] will-change-[clip-path]"
                   data-wwd-mask
                 >
-                  <div className="relative h-[240px] bg-black text-white">
+                  <div className="relative bg-black text-white aspect-[4/2]">
                     <div className="absolute inset-0 overflow-hidden">
                       <div
                         data-wwd-image
@@ -230,7 +230,6 @@ export function Services() {
                             loading="lazy"
                           />
                         )}
-                        <p>hello</p>
                       </div>
                     </div>
 

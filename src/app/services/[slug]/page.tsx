@@ -3,6 +3,7 @@ import { ServicePageTemplate } from '@/components/sections/ServicePageTemplate'
 import { ServiceCasesSection } from '@/components/sections/ServiceCasesSection'
 import { ServiceCtaCard } from '@/components/sections/ServiceCtaCard'
 import { serviceBySlug, type ServiceKey } from '@/data/serviceCatalog'
+import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 
 export default async function ServiceDetailPage({
   params,
@@ -20,10 +21,10 @@ export default async function ServiceDetailPage({
   return (
     <main className="page-wrap">
       <ServicePageTemplate service={service} />
-      <ServiceCasesSection
+      {/* <ServiceCasesSection
         title="Кейсы по направлению"
         serviceKeys={[service.slug, ...service.subservices.map((sub) => `${service.slug}:${sub.slug}`)]}
-      />
+      /> */}
       <ServiceCtaCard contextTitle={service.title} />
     </main>
   )

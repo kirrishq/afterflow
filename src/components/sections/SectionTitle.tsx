@@ -5,13 +5,6 @@ export function SectionTitle() {
     <div className="section">
         <div className="container">
             <div className="border-bottom mb-8 md:mb-12"></div>
-            {/* <div className="mt-32">
-                <div className='flex items-center gap-2'>
-                    <div className='button__dot'></div>
-                    <h2 className='heading-sm uppercase font-light'>Портфолио</h2>
-                </div>
-                <p className='heading-lg max-w-2xl mt-2'>Мы помогаем брендам расти и рассказывать свои истории миру.</p>
-            </div> */}
             <div className="grid grid-cols-1 md:grid-cols-2 items-start gap-2 mt-8">
                 <div className='flex items-center gap-2 mt-2'>
                     <div className='button__dot'></div>
